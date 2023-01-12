@@ -1,10 +1,50 @@
 import "./styles.css";
+import { Home } from "./Home";
+import { Page1 } from "./Page1";
+import { Page2 } from "./Page2";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import { Page1DetailA } from "./Page1DetalsA";
+import { Page1DetailB } from "./Page1DetalsB";
 
-export default function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Link to="/">Home</Link>
+        <br />
+        <Link to="/page1">page1</Link>
+        <br />
+        <Link to="/page2">page2</Link>
+      </div>
+
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+
+        <Route
+          path="/page1"
+          render={() => (
+            <Switch>
+              <Route exact path="/page1">
+                <Page1 />
+              </Route>
+              <Route path="/page1/detailA">
+                <Page1DetailA />
+              </Route>
+              <Route path="/page1/detailB">
+                <Page1DetailB />
+              </Route>
+
+              <Page1 />
+            </Switch>
+          )}
+        />
+
+        <Route path="/page2">
+          <Page2 />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
-}
+};
